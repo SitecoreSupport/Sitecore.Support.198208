@@ -5,7 +5,7 @@
     using Sitecore.Configuration;
     using Sitecore.Diagnostics;
     using Sitecore.Pipelines;
-    using System;
+    using Sitecore.Support.Analytics.Extensions;
     using System.Reflection;
 
     public class ReleaseContact
@@ -44,6 +44,10 @@
                 Log.Debug("Session is in TRANSIENT MODE. ReleaseContact processor is skipped");
                 return;
             }
+
+            #region Added code
+            session = (session.GetOriginalSession() ?? session);
+            #endregion
 
             contactManager.SaveAndReleaseContact(session.Contact);
             session.Contact = null;

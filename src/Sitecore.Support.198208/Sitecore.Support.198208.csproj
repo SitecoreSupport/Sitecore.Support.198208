@@ -57,6 +57,7 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Analytics\Extensions\SessionExtensions.cs" />
     <Compile Include="Analytics\Pipelines\EndAnalytics\ReleaseContact.cs" />
     <Compile Include="Analytics\Pipelines\EnsureSessionContext\SetDummySession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
