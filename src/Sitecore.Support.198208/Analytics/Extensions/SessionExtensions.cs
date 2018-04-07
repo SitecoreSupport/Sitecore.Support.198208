@@ -11,9 +11,10 @@
         public static Session GetOriginalSession(this Session session)
         {
             Assert.ArgumentNotNull(session, "session");
-            if (session.CustomData.ContainsKey("SessionExtensions.OriginalSessionKey"))
+            if (session.CustomData.ContainsKey(OriginalSessionKey))
             {
-                return session.CustomData["SessionExtensions.OriginalSessionKey"] as Session;
+                var holder = session.CustomData[OriginalSessionKey] as SessionHolder;
+                return holder != null ? holder.Session : null;
             }
             return null;
         }
@@ -21,7 +22,17 @@
         public static void SetOriginalSession(this Session session, Session originalSession)
         {
             Assert.ArgumentNotNull(session, "session");
-            session.CustomData["SessionExtensions.OriginalSessionKey"] = originalSession;
+            session.CustomData[OriginalSessionKey] = new SessionHolder(originalSession);
+        }
+
+        internal class SessionHolder
+        {
+            public SessionHolder(Session session)
+            {
+                Session = session;
+            }
+
+            public Session Session { get; private set; }
         }
     }
     #endregion
