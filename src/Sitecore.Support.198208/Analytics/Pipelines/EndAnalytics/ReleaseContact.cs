@@ -45,6 +45,11 @@
                 return;
             }
 
+            if (session.IsReadOnly)
+            {
+              return;
+            }
+
             #region Added code
             session = (session.GetOriginalSession() ?? session);
             #endregion
